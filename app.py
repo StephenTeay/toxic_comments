@@ -3,6 +3,8 @@ from tensorflow.keras.saving import register_keras_serializable
 import streamlit as st
 import tensorflow as tf
 import numpy as np
+import os
+os.environ['TF_GRAPPLER_DISABLE'] = '1'
 
 @st.cache_resource
 def load_model():
