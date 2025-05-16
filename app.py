@@ -1,11 +1,20 @@
+from tensorflow.keras.layers import LSTM
+from tensorflow.keras.saving import register_keras_serializable
 import streamlit as st
 import tensorflow as tf
 import numpy as np
 
-# Load the model
-@st.cache_resource  # Cache the model for better performance
+@st.cache_resource
 def load_model():
-    return tf.keras.models.load_model('toxicity.h5')  # Replace with your H5 file path
+    # Register custom layers first
+    register_keras_serializable()(LSTM)
+    
+    # Load with custom objects
+    return tf.keras.models.load_model(
+        'toxicity.h5',
+        custom_objects={'LSTM': LSTM}
+    )
+
 
 model = load_model()
 
