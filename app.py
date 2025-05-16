@@ -6,13 +6,9 @@ import numpy as np
 
 @st.cache_resource
 def load_model():
-    # Register custom layers first
-    register_keras_serializable()(LSTM)
-    
-    # Load with custom objects
     return tf.keras.models.load_model(
         'toxicity.h5',
-        custom_objects={'LSTM': LSTM}
+        custom_objects={'LSTM': tf.keras.layers.LSTM}
     )
 
 
